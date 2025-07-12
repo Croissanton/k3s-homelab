@@ -13,7 +13,8 @@ WEB_USER="admin"
 WEB_PASSWORD="$MC_RCON_PASSWORD"
 RCON_HOST="mc-minecraft-rcon.minecraft.svc.cluster.local"
 RCON_PORT=25575
-RWA_HOST="$HOSTNAME"
+RWA_PORT=8000
+RWA_HOST="$HOSTNAME:$RWA_PORT"
 
 kubectl get ns $NAMESPACE >/dev/null 2>&1 || kubectl create namespace $NAMESPACE
 

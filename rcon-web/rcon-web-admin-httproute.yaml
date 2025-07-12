@@ -25,4 +25,3 @@ spec:
         - name: rcon-web-admin
           namespace: rcon-web-admin
           port: 4327
-
