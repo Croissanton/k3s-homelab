@@ -365,8 +365,8 @@ minecraftServer:
     # can be used, but the password is secure.
     withGeneratedPassword: false
     port: 25575
-    password: "CHANGEME!"
-    existingSecret:
+    password: 
+    existingSecret: mc-minecraft-rcon
     secretKey: rcon-password
     serviceType: ClusterIP
     ## Set the external port if the rcon serviceType is NodePort

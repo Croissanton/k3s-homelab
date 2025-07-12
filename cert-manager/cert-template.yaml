@@ -1,0 +1,42 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    email: ${EMAIL}
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    solvers:
+    - http01:
+        ingress:
+          class: traefik
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: le
+  namespace: traefik
+spec:
+  secretName: le
+  dnsNames:
+    - "${DOMAIN}"
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: rcon-https-route
+  namespace: traefik
+spec:
+  parentRefs:
+    - name: traefik
+  hostnames:
+    - "${DOMAIN}"
+  rules:
+    - backendRefs:
+        - name: ${BACKEND_SERVICE}
+          port: ${BACKEND_PORT}
