@@ -1,7 +1,5 @@
 # Minecraft Server Exposure via Traefik & Gateway API
-
-This guide details a clean setup to expose a Minecraft server on port 25565 using Traefik v3 with Gateway API
----
+This guide details a clean setup to expose a Minecraft server on port 25565 using Traefik v3 with Gateway API.
 
 ## 1. Disable the built-in Traefik add‑on in K3s
 ```bash
