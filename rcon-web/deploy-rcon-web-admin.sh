@@ -4,6 +4,8 @@ ENV_FILE="../secrets/minecraft-secrets.env"
 
 [ -z "$MC_RCON_PASSWORD" ] && { echo "MC_RCON_PASSWORD not set"; exit 1; }
 
+[ -z "$HOSTNAME" ] && { echo "IP not set"; exit 1; }
+
 NAMESPACE="rcon-web-admin"
 RELEASE="rcon-web-admin"
 CHART="minecraft-server/rcon-web-admin"
@@ -11,6 +13,7 @@ WEB_USER="admin"
 WEB_PASSWORD="$MC_RCON_PASSWORD"
 RCON_HOST="mc-minecraft-rcon.minecraft.svc.cluster.local"
 RCON_PORT=25575
+RWA_HOST="$HOSTNAME"
 
 kubectl get ns $NAMESPACE >/dev/null 2>&1 || kubectl create namespace $NAMESPACE
 
@@ -18,6 +21,7 @@ helm upgrade --install "$RELEASE" "$CHART" \
   --namespace "$NAMESPACE" --create-namespace \
   --set service.type=ClusterIP \
   --set ingress.enabled=true \
+  --set ingress.host="$RWA_HOST" \
   --set rconWeb.username="$WEB_USER" \
   --set rconWeb.password="$WEB_PASSWORD" \
   --set "rconWeb.rconHost=$RCON_HOST" \

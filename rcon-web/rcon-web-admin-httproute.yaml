@@ -6,10 +6,23 @@ metadata:
 spec:
   parentRefs:
     - name: traefik
-      sectionName: http-rcon         # listener name in the Gateway
+      sectionName: http-rcon
   rules:
-    - backendRefs:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
         - name: rcon-web-admin
           namespace: rcon-web-admin
           port: 80
+
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /websocket
+      backendRefs:
+        - name: rcon-web-admin
+          namespace: rcon-web-admin
+          port: 4327
 
