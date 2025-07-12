@@ -11,7 +11,6 @@ EOF
 sudo systemctl restart k3s
 ````
 
----
 
 ## 2. Install Gateway API CRDs
 
@@ -29,7 +28,6 @@ Verify:
 kubectl get crd | grep -E 'gatewayclasses|gateways|tcproutes'
 ```
 
----
 
 ## 3. Create Traefik namespace and prepare values
 
@@ -56,8 +54,6 @@ service:
   enabled: false
 ```
 
----
-
 ## 4. Install Traefik v3 via Helm
 
 ```bash
@@ -66,7 +62,6 @@ helm repo update
 helm install traefik traefik/traefik --namespace traefik -f traefik-values.yaml
 ```
 
----
 
 ## 5. Set Minecraft service to ClusterIP
 
@@ -80,8 +75,6 @@ servicePort: 25565
 ```bash
 helm upgrade mc minecraft-server/minecraft --namespace minecraft -f values.yaml
 ```
-
----
 
 ## 6. Create GatewayClass & Gateway
 
@@ -115,7 +108,6 @@ spec:
 kubectl apply -f traefik-gateway.yaml
 ```
 
----
 
 ## 7. Create TCPRoute to Minecraft
 
@@ -142,7 +134,6 @@ spec:
 kubectl apply -f minecraft-ingressroute.yaml
 ```
 
----
 
 ## 8. Open port 25565 on the firewall
 
@@ -150,7 +141,6 @@ kubectl apply -f minecraft-ingressroute.yaml
 sudo ufw allow 25565/tcp
 ```
 
----
 
 ## 9. Connect!
 
