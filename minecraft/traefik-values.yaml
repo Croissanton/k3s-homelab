@@ -1,0 +1,20 @@
+hostNetwork: true
+dnsPolicy: ClusterFirstWithHostNet
+
+providers:
+  kubernetesGateway:
+    enabled: true
+    experimentalChannel: true
+
+additionalArguments:
+  - "--entryPoints.minecraft.address=:25565"
+  - "--providers.kubernetesgateway=true"
+  - "--providers.kubernetesgateway.experimentalChannel=true"
+
+entryPoints:
+  minecraft:
+    address: ":25565"
+
+service:
+  type: ClusterIP
+
